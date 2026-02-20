@@ -1,0 +1,7 @@
+{
+    "start": [
+        "composer",
+        "run",
+        "dev"
+    ]
+}
