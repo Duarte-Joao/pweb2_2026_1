@@ -11,4 +11,6 @@ Route::get('/teste', function () {
     return view('aluno.list');
 });
 
-Route::get('/teste2', [AlunoController::class,'index'])->name('aluno.index');
+Route::get('/aluno', [AlunoController::class,'index'])->name('aluno.index');
+Route::get('/aluno/create', [AlunoController::class,'create'])->name('aluno.create');
+
