@@ -7,53 +7,160 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## About this Project - Programação Web 2 com Laravel 2026.1
+Código-Fonte do Projeto desenvolvido durante as aulas de programação web 2 com PHP e Laravel no curso técnico integrado do IFSC 2026.1
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Quando baixar o projeto, o que fazer? 
+**1. Instalar as dependências do projeto**  
+`composer install`  
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+**2. copia e cola o .env.example e renomeia para .env**  
+`cp .env.example .env`  
 
-## Learning Laravel
+**3. Criar as tabelas do banco de dados do projeto**  
+`php artisan migrate` 
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+**Ou criar as tabelas e insere os registros no banco de dados do projeto**  
+`php artisan migrate --seed` 
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+**4. Iniciar o sistema**  
+`php artisan serve`
 
-## Laravel Sponsors
+**5. Acessar o sistema**  
+`http://localhost:8000/`
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+----
+## Diretorios mais usados do projeto
+#### Arquitetura de uma Aplicação em Laravel
+![Imagem1](https://github.com/lordjack/pweb2_2024_1/assets/6691621/e579df76-d7a0-4075-ae44-546f8b285c46)
 
-### Premium Partners
+**Controller**
+`App/Http/Controllers`
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+**Model**
+`App/Http/Models`
 
-## Contributing
+**View**
+`resources/views/nome_arquivo.blade.php`
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**Rotas**
+`routes/web.php`
 
-## Code of Conduct
+**Arquivos de migração(geram as tabelas do banco de dados)**
+`database/migrations`
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+----
+## Banco de dados
 
-## Security Vulnerabilities
+**Criar arquivo para gerar tabela no banco de dados**  
+`php artisan make:migration create_nome_tabela`
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**Gerar as tabelas no banco de dados**  
+`php artisan migrate` ou `php artisan migrate --seed` Gera o banco e execulta os seeds 
 
-## License
+**Recriar as tabelas no banco de dados**  
+`php artisan migrate:fresh --seed` Gera o banco e execulta os seeds 
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+**Salvar .SQL do banco de dados**  
+`database/sql/db_aula.sql`
+
+**Criar um arquivo para inserir registros no banco de dados**  
+`php artisan make:seeder NomeSeeder`
+
+**Inserir registros no banco de dados a partir de um arquivo**  
+`php artisan db:seed NomeSeeder`
+
+----
+## Comandos básicos do Laravel  
+**Listar todos os comandos do Laravel**  
+`php artisan list`
+
+**Criar um arquivo Model**  
+`php artisan make:model NomeModel`
+
+**Criar um arquivo Model e um arquivo de migração ao mesmo tempo**  
+`php artisan make:model NomeModel -m`
+
+**Criar um arquivo Controller**  
+`php artisan make:controller NomeController`
+
+**Criar um Controller e o --model associa com o Model da tabela**  
+`php artisan make:controller NomeController --resource --model=NomeModel`
+
+**Habilitar o envio de arquivo para o Storage**  
+`php artisan storage:link`
+
+**Criando multiplos arquivos junto com o Model - Migração, Factory, Seed, Controller com Resource**  
+`php artisan make:model NomeModel -mfscr`
+
+- [Mais detalhes ver documentação oficial do Laravel](https://laravel.com/docs/10.x/eloquent#generating-model-classes).
+
+
+## Comandos básicos Git
+
+**Clonar o projeto**  
+`git clone URL_PROJETO`
+
+**Configurar o email e nome do repositorio**  
+`git config --global user.email "you@example.com"`\
+`git config --global user.name "Your Name"`
+
+**Adicionar todos arquivos para serem versionados**  
+`git add .`
+
+**Commitar o arquivo para ser versionado**  
+`git commit -m "Sua mensagem"`
+
+**Enviar as alterações para o repositorio remoto do Git**  
+`git push`
+
+**Atualizar arquivos do projeto local de acordo com o repositorio do Git remoto**  
+`git pull`
+
+**CRUDs do Projeto**  
+
+![db_academico](https://github.com/lordjack/pweb2_2024_1/assets/6691621/cd722837-e1f4-41be-94f4-78b2bf9d08d6)
+
+
+## Dicas atalhos no VSCode
+[Vídeo com as dicas](https://youtu.be/MZgbd7bjCTk?si=0zN4B2YsXLU3a9Z8) 
+
+**Duplicar Linha**  
+`Shift + Alt + Seta`  
+**Mover Linha**  
+`Alt + Seta`  
+**Apagar Linha**  
+`Ctrl + Shift + K`  
+**Multi Ocorrências**  
+`Ctrl + D`  
+**Multi Seleção**  
+`Alt + Click`  
+**Zen Mode**  
+`Ctrl + K Z`   
+**IntelliSense**  
+`Ctrl + Espaço`   
+**Apagar a linha**  
+`Ctrl+Shift+K`   
+**Cria a estrutura básica de HTML**  
+`Alt + ! + tab`   
+**Mostrar os atalhos dos comandos**  
+`Ctrl+k Ctrl+s`   
+## Comandos para o Node
+
+**Instalar Pacotes do Node**  
+`npm install`   
+
+**Publicar os pacotes do node**  
+`npm run build`   
+
+**Ver versão do node que esta instalado**  
+`node -v`   
+
+### Links Úteis
+- [Documentação oficial do Laravel](https://laravel.com/docs).
+- [Correção do Erro de instalação do login Breeze](https://stackoverflow.com/questions/72798465/vite-manifest-not-found-at-c-users-hp-example-app-public-build-manifest-json)
+- [Criando Relatório em PDF com Laravel](https://www.itsolutionstuff.com/post/laravel-create-pdf-file-with-image-exampleexample.html)
+- [Criando Gráficos com Laravel](https://larapex-charts.netlify.app/)
+- [Criando uma API com Laravel](https://www.itsolutionstuff.com/post/laravel-9-rest-api-authentication-using-sanctum-tutorialexample.html)
+- [Curso completo Laravel versão 10 em português](https://academy.especializati.com.br/curso/laravel-10-gratuito).
