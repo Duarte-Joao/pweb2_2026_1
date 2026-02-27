@@ -4,7 +4,8 @@
 
 <h4>Formulário Aluno</h4>
 
-<form>
+<form action="{{route('aluno.store')}}" method="POST">
+    @csrf <!--camada de segurança para o formulário-->
     <div class="row">
         <div class="col">
             <label for="nome" class="form-label">Nome</label>

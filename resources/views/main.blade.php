@@ -14,7 +14,21 @@
 </header>
 <!-- principal-->
 <main >
-    @yield('conteudo')
+    <div class="container mt-4">
+        <div class="row">
+            @if($errors->any())
+            <p>Por favor, verifique os erros abaixo</p>
+                <ul>
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            @endif
+        </div>
+    </div>
+    <div class="row">
+        @yield('conteudo')
+    </div>
 </main>
 
 
