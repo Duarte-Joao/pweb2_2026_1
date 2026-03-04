@@ -25,7 +25,7 @@ class AlunoController extends Controller
     function store(Request $request)
     {
         //dd($request->all()); <--serve para debug
-        
+
         $request->validate([
             'nome'=>'required',
             'cpf'=>'required',
@@ -52,4 +52,20 @@ class AlunoController extends Controller
 
     }
 
+    function destroy($id)
+    {
+        Aluno::destroy($id);
+        return redirect('aluno');
+    }
+
+    function search(Request $request)
+    {
+        if(!empty($request->valor)){
+            $dados = Aluno::where($request->tipo, 'like', '%'. $request->valor . '%')->get();
+        }else{
+            $dados = Aluno::all();
+        }
+
+        return view('aluno.list', ['dados' => $dados]);
+    }
 }
