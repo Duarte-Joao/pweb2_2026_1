@@ -68,4 +68,25 @@ class AlunoController extends Controller
 
         return view('aluno.list', ['dados' => $dados]);
     }
+
+    function edit($id)
+    {
+        $dado = Aluno::find($id);
+        return view('aluno.form', ['dado' => $dado]);
+    }
+
+    function update(Request $request, $id)
+    {
+        $request->validate([
+            'nome' => 'required',
+            'cpf' => 'required',
+        ],  [
+            'nome' => "O :attribute é obrigatório",
+            'cpf' => "O :attribute é obrigatório",
+        ]);
+
+        Aluno::find($id)->update($request->all());
+
+        return redirect('aluno');
+    }
 }
