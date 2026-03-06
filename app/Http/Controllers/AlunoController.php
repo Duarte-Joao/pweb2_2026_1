@@ -33,22 +33,22 @@ class AlunoController extends Controller
             'nome'=>"O :attribute é obrigatório",
             'cpf'=>"O :attribute é obrigatório",
         ]);
-
+        /*
         Aluno::create([
             'nome' => $request->nome,
             'cpf' => $request->cpf,
             'telefone' => $request->telefone
         ]);
 
-        return redirect('aluno');
+        return redirect('aluno');*/
 
         //OU QUANDO TEM MUITA INFORMAÇÃO OU ALGO COM VALIDAÇÃO ESPECIFICA DA PRA USAR ESSE OUTRO
         /*OUTRO JEITO*/
 
-        /*
+
         Aluno::create($request->all());
         return redirect('aluno');
-        */
+        
 
     }
 

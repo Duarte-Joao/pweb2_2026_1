@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('categoria_alunos', function (Blueprint $table) {
             $table->id();
+            $table->string('nome');
+            $table->integer('nivel');
             $table->timestamps();
         });
     }
