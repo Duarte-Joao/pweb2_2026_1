@@ -38,18 +38,28 @@
   <thead>
     <tr>
       <th scope="col">#</th>
+      <th scope="col">Imagem</th>
       <th scope="col">Nome</th>
       <th scope="col">CPF</th>
       <th scope="col">Telefone</th>
+      <th scope="col">Categoria</th>
     </tr>
   </thead>
   <tbody>
     @foreach($dados as $item)
+        @php
+            $nome_imagem = !empty($item->imagem) ? $item->imagem : 'sem_imagem.php';
+        @endphp
+
         <tr>
             <th scope="row">{{$item->id}}</th>
+            <td> <img src="/storage/{{ $nome_imagem }}" class="reounded-circle" width="150px" height="150px" alt="imagem">
+
+            </td>
             <td>{{ $item->nome }}</td>
             <td>{{ $item->cpf }}</td>
             <td>{{ $item->telefone }}</td>
+            <td>{{ $item->categoria_id->nome ?? ''}}</td>
             <td><a href="{{route('aluno.edit', $item->id)}}" class="btn btn-warning">Editar</a></td>
             <td>
                 <form action="{{ route('aluno.destroy', $item->id) }}" method="post">

@@ -18,25 +18,27 @@ class AlunoController extends Controller
         return view('aluno.list', ['dados' => $dados]);
     }
 
-    function create(){
+    function create()
+    {
         $categorias = CategoriaAluno::orderBy('nome')->get();
 
         return view('aluno.form', ['categorias' => $categorias]);
     }
 
 
-    function validateRequest(Request $request){
+    function validateRequest(Request $request)
+    {
         $request->validate([
-            'nome'=>'required',
-            'cpf'=>'required',
-            'categoria_id'=>'required',
-            'imagem'=> 'nullable|image|mimes:png,jpg,jpeg'
-        ],[
-            'nome.required'=>"O :attribute é obrigatório",
-            'cpf.required'=>"O :attribute é obrigatório",
-            'categoria_id.required'=>'O :attribute é obrigatório',
-            'imagem.image'=> "O :attribute deve ser enviado",
-            'imagem.mimes'=> "O :attribute deve ser das extensões: PNG, JPEG e JPG",
+            'nome' => 'required',
+            'cpf' => 'required',
+            'categoria_id' => 'required',
+            'imagem' => 'nullable|image|mimes:png,jpg,jpeg'
+        ], [
+            'nome.required' => "O :attribute é obrigatório",
+            'cpf.required' => "O :attribute é obrigatório",
+            'categoria_id.required' => 'O :attribute é obrigatório',
+            'imagem.image' => "O :attribute deve ser enviado",
+            'imagem.mimes' => "O :attribute deve ser das extensões: PNG, JPEG e JPG",
         ]);
     }
 
@@ -45,11 +47,21 @@ class AlunoController extends Controller
         //dd($request->all()); <--serve para debug
 
         $this->validateRequest($request);
+        $data = $request->all();
+        $imagem = $request->file('imagem');
 
-        Aluno::create($request->all());
+        if ($imagem) {
+            $nome_imagem = date('YmdiHs') . "." . $imagem->getClientOriginalExtension();
+            $diretorio = "imagem/aluno/";
+            $imagem->storeAs($diretorio, $nome_imagem, 'public');
+
+            $data['imagem'] = $diretorio . $nome_imagem;
+        }
+
+
+        Aluno::create($data);
+
         return redirect('aluno');
-
-
     }
 
     function destroy($id)
@@ -60,9 +72,9 @@ class AlunoController extends Controller
 
     function search(Request $request)
     {
-        if(!empty($request->valor)){
-            $dados = Aluno::where($request->tipo, 'like', '%'. $request->valor . '%')->get();
-        }else{
+        if (!empty($request->valor)) {
+            $dados = Aluno::where($request->tipo, 'like', '%' . $request->valor . '%')->get();
+        } else {
             $dados = Aluno::all();
         }
 
@@ -80,8 +92,18 @@ class AlunoController extends Controller
     function update(Request $request, $id)
     {
         $this->validateRequest($request);
+        $data = $request->all();
+        $imagem = $request->file('imagem');
 
-        Aluno::find($id)->update($request->all());
+        if ($imagem) {
+            $nome_imagem = date('YmdiHs') . "." . $imagem->getClientOriginalExtension();
+            $diretorio = "imagem/aluno/";
+            $imagem->storeAs($diretorio, $nome_imagem, 'public');
+
+            $data['imagem'] = $diretorio . $nome_imagem;
+        }
+
+        Aluno::find($id)->update($data);
 
         return redirect('aluno');
     }
