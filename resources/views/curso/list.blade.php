@@ -41,6 +41,7 @@
                 <th scope="col">Requisito</th>
                 <th scope="col">Carga Horária</th>
                 <th scope="col">Valor</th>
+                <th scope="col">Detalhe</th>
             </tr>
         </thead>
         <tbody>
@@ -51,6 +52,8 @@
                     <td>{{ $item->requisito }}</td>
                     <td>{{ $item->carga_horaria }}</td>
                     <td>{{ $item->valor }}</td>
+                    <td>{{ $item->valor }}</td>
+                    <td><a href="{{ route('curso.turmas', $item->id) }}" class="btn btn-primary">Ver Turmas</a></td>
                     <td><a href="{{ route('curso.edit', $item->id) }}" class="btn btn-warning">Editar</a></td>
                     <td>
                         <form action="{{ route('curso.destroy', $item->id) }}" method="post">

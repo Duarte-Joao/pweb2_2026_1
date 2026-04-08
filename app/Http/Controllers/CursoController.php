@@ -53,16 +53,7 @@ class CursoController extends Controller
         return redirect('curso');
     }
 
-    function search(Request $request)
-    {
-        if (!empty($request->valor)) {
-            $dados = Curso::where($request->tipo, 'like', '%' . $request->valor . '%')->get();
-        } else {
-            $dados = Curso::all();
-        }
 
-        return view('curso.list', ['dados' => $dados]);
-    }
 
     function edit($id)
     {
@@ -79,5 +70,16 @@ class CursoController extends Controller
         Curso::find($id)->update($data);
 
         return redirect('curso');
+    }
+
+    function search(Request $request)
+    {
+        if (!empty($request->valor)) {
+            $dados = Curso::where($request->tipo, 'like', '%' . $request->valor . '%')->get();
+        } else {
+            $dados = Curso::all();
+        }
+
+        return view('curso.list', ['dados' => $dados]);
     }
 }

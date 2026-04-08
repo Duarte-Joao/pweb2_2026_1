@@ -2,64 +2,92 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Turma;
 use Illuminate\Http\Request;
+use App\Models\Turma;
+use App\Models\Curso;
 
 class TurmaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+    function index(Curso $curso)
     {
-        //
+        $dados = $curso->turmas; // é igual a SELECT * from turme where curso_id = $curso->id
+
+        return view('turma.list', [
+            'dados' => $dados,
+            'curso' => $curso
+            ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    function create(Curso $curso)
     {
-        //
+        return view('turma.form', ['curso, $curso']);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+
+    function validateRequest(Request $request)
     {
-        //
+        $request->validate([
+            'nome' => 'required',
+            'requisito' => 'nullable|string',
+            'carga_horaria' => 'nullable|numeric',
+            'valor' => 'nullable|numeric',
+        ], [
+            'nome.required' => "O :attribute é obrigatório",
+            'requisito.string' => "O :attribute deve ser caractere",
+            'carga_horaria.numeric' => 'O :attribute deve ser numérico',
+        ]);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Turma $turma)
+    function store(Request $request)
     {
-        //
+        //dd($request->all()); <--serve para debug
+
+        $this->validateRequest($request);
+        $data = $request->all();
+
+        $turma = Turma::create($data);
+
+        return redirect()->route('curo.turmas', $turma->curso_id);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Turma $turma)
+    function update(Request $request, $id)
     {
-        //
+        $this->validateRequest($request);
+        $data = $request->all();
+
+        $turma = Turma::find($id)->update($data);
+
+        return redirect()->route('curso.turmas', $turma->curso_id);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Turma $turma)
+    function destroy($id)
     {
-        //
+        $dado = Turma::findOrfail($id);
+        $dado->delete();
+
+        return redirect()->route('curso.turmas', $dado->curso_id);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Turma $turma)
+    function search(Request $request)
     {
-        //
+        if (!empty($request->valor)) {
+            $dados = Turma::where($request->tipo, 'like', '%' . $request->valor . '%')->get();
+        } else {
+            $dados = Turma::all();
+        }
+
+        return view('turma.list', ['dados' => $dados]);
+    }
+
+    function edit($id)
+    {
+        $dado = Turma::find($id);
+        $curso = Curso::orderBy('nome')->get();
+
+        return view('turma.form', [
+            'dado' => $dado,
+            'curso' => $curso,
+            ]);
     }
 }
