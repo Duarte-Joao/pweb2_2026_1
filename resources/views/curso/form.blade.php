@@ -12,9 +12,8 @@
         }
     @endphp
 
-
     <form action="{{ $action }}" method="POST" enctype="multipart/form-data">
-        @csrf <!--camada de segurança para o formulário-->
+        @csrf
         @if (!empty($dado->id))
             @method('PUT')
         @endif
@@ -23,7 +22,6 @@
             <div class="col">
                 <label for="nome" class="form-label">Nome</label>
                 <input type="text" class="form-control" name="nome" value="{{ old('nome', $dado->nome ?? '') }}">
-                <!--?? é um if do laravel-->
             </div>
             <div class="col">
                 <label for="requisito" class="form-label">Requisito</label>
@@ -32,11 +30,12 @@
             </div>
             <div class="col">
                 <label class="form-label" for="carga_horaria">Carga Horária</label>
-                <input type="text" class="form-control" name="carga_horaria" value="{{ old('carga_horaria', $dado->carga_horaria ?? '') }}">
+                <input type="text" class="form-control" name="carga_horaria"
+                    value="{{ old('carga_horaria', $dado->carga_horaria ?? '') }}">
             </div>
             <div class="col">
                 <label class="form-label" for="valor">Valor</label>
-                <input type="text" class="form-control" name="valor" value="{{ old('valor', $dado->carga_horaria ?? '') }}">
+                <input type="text" class="form-control" name="valor" value="{{ old('valor', $dado->valor ?? '') }}">
             </div>
         </div>
 

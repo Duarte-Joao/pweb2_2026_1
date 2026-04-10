@@ -16,17 +16,32 @@
 <main >
     <div class="container mt-4">
         <div class="row">
-            @if($errors->any())
-            <p>Por favor, verifique os erros abaixo</p>
-                <ul>
-                    @foreach($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
+            @if(session('success'))
+                <div class="alert alert-success alert-dimissible fade show" role="alert">
+                    {{session('success')}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="fechar"></button>
+                </div>
+            @endif
+
+            @if(session('error'))
+                <div class="alert alert-danger alert-dimissible fade show" role="alert">
+                    {{session('error')}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="fechar"></button>
+                </div>
             @endif
         </div>
     </div>
     <div class="row">
+        @if($errors->any())
+            <div class="alert alert-success alert-dimissible fade show" role="alert">
+                <b>Por favor, verifique os erros abaixo</b>
+                    <ul class="mb-0 mt-1">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+            </div>
+        @endif
         @yield('conteudo')
     </div>
 </main>

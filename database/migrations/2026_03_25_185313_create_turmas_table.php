@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nome', 150);
             $table->foreignId('curso_id')->constrained('cursos');
-            $table->string('cdigo', 20);
+            $table->string('codigo', 20);
             $table->date('data_inicio')->nullable();
             $table->date('data_fim')->nullable();
             $table->timestamps();

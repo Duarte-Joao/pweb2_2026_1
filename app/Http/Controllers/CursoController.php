@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Curso;
+use Illuminate\Http\Request;
 
 class CursoController extends Controller
 {
-
     function index()
     {
-        $dados = Curso::all(); // é igual a SELECT * from curso
+        $dados = Curso::all(); //select * from curso
 
         return view('curso.list', ['dados' => $dados]);
     }
@@ -19,7 +18,6 @@ class CursoController extends Controller
     {
         return view('curso.form');
     }
-
 
     function validateRequest(Request $request)
     {
@@ -31,35 +29,27 @@ class CursoController extends Controller
         ], [
             'nome.required' => "O :attribute é obrigatório",
             'requisito.string' => "O :attribute deve ser caractere",
-            'carga_horaria.numeric' => 'O :attribute deve ser numérico',
+            'carga_horaria.numeric' => "O :attribute é deve ser númerico",
         ]);
     }
 
     function store(Request $request)
     {
-        //dd($request->all()); <--serve para debug
-
         $this->validateRequest($request);
         $data = $request->all();
 
         Curso::create($data);
 
-        return redirect('curso');
+        return redirect('curso')->with('success', 'Registro cadastrado com sucesso');
     }
-
-    function destroy($id)
-    {
-        Curso::destroy($id);
-        return redirect('curso');
-    }
-
-
 
     function edit($id)
     {
         $dado = Curso::find($id);
 
-        return view('curso.form', ['dado' => $dado,]);
+        return view('curso.form', [
+            'dado' => $dado,
+        ]);
     }
 
     function update(Request $request, $id)
@@ -69,13 +59,28 @@ class CursoController extends Controller
 
         Curso::find($id)->update($data);
 
-        return redirect('curso');
+        return redirect('curso')->with('success', 'Registro atualizado com sucesso');
+    }
+
+    function destroy($id)
+    {
+        $dado = Curso::find($id);
+        if($dado->turmas->count() > 0){
+            return redirect('curso')->with('error', 'Não é possível excluir o curso pois há turmas vinculadas a ela.');
+        }
+
+        $dado->delete();
+        return redirect('curso')->with('success', 'Registro removido com sucesso');
     }
 
     function search(Request $request)
     {
         if (!empty($request->valor)) {
-            $dados = Curso::where($request->tipo, 'like', '%' . $request->valor . '%')->get();
+            $dados = Curso::where(
+                $request->tipo,
+                'like',
+                '%' . $request->valor . '%'
+            )->get();
         } else {
             $dados = Curso::all();
         }
