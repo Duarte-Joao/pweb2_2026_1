@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Turma extends Model
 {
+    /** @use HasFactory<\Database\Factories\TurmaFactory> */
+    use HasFactory;
+
     protected $table = "turmas";
 
     protected $fillable = [

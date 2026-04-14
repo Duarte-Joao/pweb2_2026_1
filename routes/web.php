@@ -22,6 +22,7 @@ route::put('aluno/update/{id}', [AlunoController::class, 'update'])->name('aluno
 route::post('/aluno/search', [AlunoController::class, 'search'])->name('aluno.search');
 
 
+route::get('curso/chart',[\App\Http\Controllers\CursoController::class, 'chart'])->name('curso.chart');
 route::resource('curso', \App\Http\Controllers\CursoController::class);
 route::get('curso/{curso}/turmas', [TurmaController::class, 'index'])->name('curso.turmas');
 route::get(
@@ -34,3 +35,4 @@ route::post('/curso/search', [\App\Http\Controllers\CursoController::class, 'sea
 route::resource('turma', \App\Http\Controllers\TurmaController::class);
 route::post('/turma/search', [\App\Http\Controllers\TurmaController::class, 'search'])
     ->name('turma.search');
+

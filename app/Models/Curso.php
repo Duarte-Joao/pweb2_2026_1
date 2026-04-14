@@ -7,11 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Curso extends Model
 {
+    /** @use HasFactory<\Database\Factories\CursoFactory> */
+    use HasFactory;
+
     protected $fillable = [
         'nome',
         'requisito',
         'carga_horaria',
         'valor',
+
     ];
 
     public function turmas()

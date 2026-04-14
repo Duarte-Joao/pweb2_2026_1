@@ -18,7 +18,7 @@ class TurmaFactory extends Factory
     {
         return [
             'nome' => $this->faker->name,
-            'codigo' =>$this->faker->unique()->numerify('TURMA - ####'),
+            'codigo' => $this->faker->unique()->numerify('TURMA - ####'),
             'curso_id' => (\App\Models\Curso::All()->random())->id,
             'data_inicio' => $this->faker->date(),
             'data_fim' => $this->faker->date(),
