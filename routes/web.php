@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AlunoController;
 use App\Http\Controllers\TurmaController;
+use App\Http\Controllers\CursoController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,16 +24,22 @@ route::post('/aluno/search', [AlunoController::class, 'search'])->name('aluno.se
 
 
 route::get('curso/chart',[\App\Http\Controllers\CursoController::class, 'chart'])->name('curso.chart');
+route::get('curso/reportMatriculados', [CursoController::class, 'reportMatriculados'])->name('curso.reportMatriculados');
+route::get('curso/report', [CursoController::class, 'report'])->name('curso.report');
 route::resource('curso', \App\Http\Controllers\CursoController::class);
 route::get('curso/{curso}/turmas', [TurmaController::class, 'index'])->name('curso.turmas');
 route::get(
     'curso/{curso}/turmas/create',
     [TurmaController::class, 'create']
 )->name('curso.turmas.create');
+
+
 route::post('/curso/search', [\App\Http\Controllers\CursoController::class, 'search'])
-    ->name('curso.search');
+->name('curso.search');
 
 route::resource('turma', \App\Http\Controllers\TurmaController::class);
 route::post('/turma/search', [\App\Http\Controllers\TurmaController::class, 'search'])
-    ->name('turma.search');
+->name('turma.search');
+
+
 

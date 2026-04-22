@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Curso;
 use Illuminate\Http\Request;
 use App\Charts\QtdAlunoCurso;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class CursoController extends Controller
 {
@@ -86,10 +87,35 @@ class CursoController extends Controller
             $dados = Curso::all();
         }
 
-        return view('curso.list', ['dados' => $dados]);
+        return view('cursos.list', ['dados' => $dados]);
     }
 
     function chart(QtdAlunoCurso $chart){
         return view('curso.chart', ['chart'=>$chart->build()]);
+    }
+
+    public function report(){
+        $cursos = Curso::orderBy('id')->get();
+
+        $data = [
+            'titulo' => 'Relatório Listagem de Cursos',
+            'cursos' => $cursos,
+            ];
+
+        $pdf = Pdf::loadView('curso.report', $data);
+
+        return $pdf->download('relatorio_listagem_aluno_curso.pdf');
+    }
+    public function reportMatriculados(){
+        $cursos = Curso::with('alunos.categoria')->orderBy('id')->get();
+
+        $data = [
+            'titulo' => 'Relatório Matriculados por Curso',
+            'cursos' => $cursos,
+            ];
+
+        $pdf = Pdf::loadView('curso.reportMatriculados', $data);
+
+        return $pdf->download('relatorio_aluno_matriculados_por_curso.pdf');
     }
 }

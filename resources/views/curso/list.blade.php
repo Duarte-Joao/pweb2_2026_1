@@ -29,6 +29,15 @@
                     <div class="col-md-3">
                         <a href="{{ url('curso/create') }}" class="btn btn-success"> Novo</a>
                     </div>
+                    <div class="col-md-3">
+                        <a href="{{ url('curso/chart') }}" class="btn btn-success"> Gráfico</a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="{{ url('curso/report') }}" class="btn btn-success"> Relatório Cursos</a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="{{ url('curso/reportMatriculados') }}" class="btn btn-success"> Relatório Matriculados por Curso</a>
+                    </div>
                 </div>
             </form>
         </div>
@@ -57,7 +66,7 @@
                             <td>{{ $item->requisito }}</td>
                             <td>{{ $item->carga_horaria }}</td>
                             <td>{{ $item->valor }}</td>
-                            <td><a href="{{ route('curso.turmas', $item->id) }}" class="btn btn-primary">Ver Turma {{$item->turmas->count()}}</a></td>
+                            <td><a href="{{ route('curso.turmas', $item->id) }}" class="btn btn-primary">Ver {{$item->turmas->count()}} Turmas</a></td>
                             <td><a href="{{ route('curso.edit', $item->id) }}" class="btn btn-warning">Editar</a></td>
                             <td>
                                 <form action="{{ route('curso.destroy', $item->id) }}" method="post">
