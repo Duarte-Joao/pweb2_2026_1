@@ -19,6 +19,7 @@
         @if ($curso->alunos->isEmpty())
             <p>Nenhum aluno matriculado no curso</p>
         @else
+            <p>Total de Alunos Matriculados Neste curso: {{ $curso->alunos->count() }}</p>
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -33,7 +34,7 @@
                 <tbody>
                     @foreach ($curso->alunos as $aluno)
                     @php
-                        $dataMatricula = date('d/m/Y', )strtotime($aluno->pivot->data_matricula?);
+                        $dataMatricula = date('d/m/Y', strtotime($aluno->pivot->data_matricula));
                     @endphp
                         <tr>
                             <th scope="row">{{ $aluno->id }}</th>

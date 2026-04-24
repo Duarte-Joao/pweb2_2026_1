@@ -17,10 +17,10 @@ class MatriculaFactory extends Factory
     public function definition(): array
     {
         return [
-            'curso_id' => (\App\Models\Matricula::All()->random())->id,
-            'turma_id' => (\App\Models\Matricula::All()->random())->id,
-            'aluno_id' => (\App\Models\Matricula::All()->random())->id,
+            'curso_id' => (\App\Models\Curso::All()->random())->id,
+            'turma_id' => (\App\Models\Turma::All()->random())->id,
+            'aluno_id' => (\App\Models\Aluno::All()->random())->id,
             'data_matricula' => $this->faker->date(),
-            ];
+        ];
     }
 }
